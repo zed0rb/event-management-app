@@ -1,0 +1,35 @@
+{% extends './base.html.twig' %}
+
+{% block title %}Register for Event{% endblock %}
+
+{% block body %}
+    <div class="w-4/5 m-auto pt-40">
+        <h1 class="text-6xl text-center pb-12">Register for Event</h1>
+
+        {{ form_start(form) }}
+
+        <div class="mb-4">
+            {{ form_row(form.name, {
+                'attr': {
+                    'class': 'bg-transparent block border-b-2 w-full h-20 text-6xl outline-none',
+                    'placeholder': 'Enter your name...',
+                }
+            }) }}
+        </div>
+
+        <div class="mb-4">
+            {{ form_row(form.email, {
+                'attr': {
+                    'class': 'bg-transparent block border-b-2 w-full h-20 text-6xl outline-none',
+                    'placeholder': 'Enter your email...',
+                }
+            }) }}
+        </div>
+
+        <button type="submit" class="uppercase bg-blue-500 text-gray-100 text-lg font-extrabold py-4 px-8 rounded-3xl">
+            Register
+        </button>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
