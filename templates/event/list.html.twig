@@ -16,7 +16,10 @@
                         <p class="text-gray-600">Registrations: {{ event.users|length }}</p>
                     </div>
                     <div class="px-6 py-4 bg-gray-100">
-                        {% if event.users|length >= event.registrationLimit %}
+                        {% set now = date() %}
+                        {% if event.date < now %}
+                            <span class="text-red-500 font-semibold">Event has expired</span>
+                        {% elseif event.users|length >= event.registrationLimit %}
                             <span class="text-red-500 font-semibold">Full</span>
                         {% else %}
                             <a href="{{ path('user_register', {id: event.id}) }}"
