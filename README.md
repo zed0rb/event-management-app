@@ -87,7 +87,7 @@ To list all registered users with their emails:
 3. Run the following command:
 
     ```bash
-    docker-compose exec php php bin/console app:registered-users
+    docker-compose exec web php bin/console app:registered-users
     ```
 
    This will output a table of all registered users and their emails.
