@@ -24,7 +24,7 @@ register for events, and view a list of events. Additionally, there is a console
 1. **Clone the Repository**
 
     ```bash
-    git clone https://github.com/yourusername/event-management-app.git
+    git clone https://github.com/zed0rb/event-management-app.git
     cd event-management-app
     ```
 
