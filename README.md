@@ -49,8 +49,8 @@ register for events, and view a list of events. Additionally, there is a console
    Create the database and run migrations:
 
     ```bash
-    docker-compose exec php php bin/console doctrine:database:create
-    docker-compose exec php php bin/console doctrine:migrations:migrate
+    docker-compose exec web php bin/console doctrine:database:create
+    docker-compose exec web php bin/console doctrine:migrations:migrate
 
 ## Application Features
 
