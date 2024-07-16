@@ -24,7 +24,7 @@ register for events, and view a list of events. Additionally, there is a console
 1. **Clone the Repository**
 
     ```bash
-    git clone https://github.com/yourusername/event-management-app.git
+    git clone https://github.com/zed0rb/event-management-app.git
     cd event-management-app
     ```
 
@@ -49,8 +49,8 @@ register for events, and view a list of events. Additionally, there is a console
    Create the database and run migrations:
 
     ```bash
-    docker-compose exec php php bin/console doctrine:database:create
-    docker-compose exec php php bin/console doctrine:migrations:migrate
+    docker-compose exec web php bin/console doctrine:database:create
+    docker-compose exec web php bin/console doctrine:migrations:migrate
 
 ## Application Features
 
@@ -87,7 +87,7 @@ To list all registered users with their emails:
 3. Run the following command:
 
     ```bash
-    docker-compose exec php php bin/console app:registered-users
+    docker-compose exec web php bin/console app:registered-users
     ```
 
    This will output a table of all registered users and their emails.
