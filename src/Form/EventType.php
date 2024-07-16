@@ -24,7 +24,7 @@ class EventType extends AbstractType
                     'placeholder' => 'Enter event...',
                 ],
                 'label' => false,
-                'required' => false,
+                'required' => true,
                 'constraints' => [
                     new NotBlank(['message' => 'Please enter a Event name.']),
                 ],
@@ -34,7 +34,7 @@ class EventType extends AbstractType
                     'class' => 'bg-transparent block mt-10 border-b-2 w-full h-20 text-6xl outline-none',
                 ],
                 'label' => false,
-                'required' => false,
+                'required' => true,
                 'widget' => 'single_text',
                 'html5' => true,
                 'constraints' => [
@@ -52,10 +52,11 @@ class EventType extends AbstractType
                     'placeholder' => 'Enter registration limit...'
                 ],
                 'label' => false,
-                'required' => false,
+                'required' => true,
                 'constraints' => [
                     new NotBlank(['message' => 'Please enter a registration limit.']),
                     new Type(['type' => 'integer', 'message' => 'Registration limit must be a number.']),
+                    new GreaterThanOrEqual(['value' => 1, 'message' => 'Registration limit must be at least 1.']),
                 ],
             ]);
     }

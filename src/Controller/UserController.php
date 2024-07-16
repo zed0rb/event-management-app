@@ -33,8 +33,6 @@ class UserController extends AbstractController
             $this->entityManager->persist($user);
             $this->entityManager->flush();
 
-            $this->addFlash('success', 'You have successfully registered for the event.');
-
             return $this->redirectToRoute('event_list');
         }
 
