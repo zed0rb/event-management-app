@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Event;
 use App\Entity\User;
+use DateTime;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -48,7 +49,7 @@ class UserType extends AbstractType
                         }
 
                         // Check if the event date is in the past
-                        if ($event->getDate() < new \DateTime()) {
+                        if ($event->getDate() < new DateTime()) {
                             $context->buildViolation('Cannot register for an event that has already occurred.')
                                 ->atPath('email')
                                 ->addViolation();

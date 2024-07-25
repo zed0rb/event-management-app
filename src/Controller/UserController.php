@@ -23,6 +23,16 @@ class UserController extends AbstractController
     #[Route('/user/register/{id}', name: 'user_register', methods: ['GET', 'POST'])]
     public function register(Event $event, Request $request): Response
     {
+        // Check if the event is full
+        if ($event->getUsers()->count() >= $event->getRegistrationLimit()) {
+            return $this->redirectToRoute('event_list');
+        }
+
+        // Check if the event date has passed
+        if ($event->getDate() < new \DateTime()) {
+            return $this->redirectToRoute('event_list');
+        }
+
         $user = new User();
         $user->setEvent($event);
 
@@ -32,6 +42,8 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->persist($user);
             $this->entityManager->flush();
+
+            $this->addFlash('success', 'You have successfully registered for the event.');
 
             return $this->redirectToRoute('event_list');
         }
