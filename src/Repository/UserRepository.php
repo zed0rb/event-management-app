@@ -16,28 +16,24 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-    //    /**
-    //     * @return User[] Returns an array of User objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('u')
-    //            ->andWhere('u.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('u.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    /**
+     * Checks if a user is registered for a given event by email.
+     *
+     * @param int $eventId
+     * @param string $email
+     * @return bool
+     */
+    public function isUserRegisteredForEvent(int $eventId, string $email): bool
+    {
+        // Use the QueryBuilder to perform a direct database query
+        $qb = $this->createQueryBuilder('u')
+            ->select('count(u.id)')
+            ->where('u.event = :eventId')
+            ->andWhere('u.email = :email')
+            ->setParameter('eventId', $eventId)
+            ->setParameter('email', $email);
 
-    //    public function findOneBySomeField($value): ?User
-    //    {
-    //        return $this->createQueryBuilder('u')
-    //            ->andWhere('u.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        // Execute the query and return true if there are results
+        return $qb->getQuery()->getSingleScalarResult() > 0;
+    }
 }

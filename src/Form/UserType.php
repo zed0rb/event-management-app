@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Event;
 use App\Entity\User;
+use App\Repository\UserRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -17,6 +18,13 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class UserType extends AbstractType
 {
+    private UserRepository $userRepository;
+
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -46,17 +54,14 @@ class UserType extends AbstractType
                         if (!$event) {
                             return;
                         }
-                        
-                        // Check if user is already registered for this event
-                        if ($event->getUsers()->count() > 0) {
-                            foreach ($event->getUsers() as $user) {
-                                if ($user->getEmail() === $email) {
-                                    $context->buildViolation('You are already registered for this event.')
-                                        ->atPath('email')
-                                        ->addViolation();
-                                    break;
-                                }
-                            }
+
+                        // Use the repository method to check if the user is registered
+                        $isUserRegistered = $this->userRepository->isUserRegisteredForEvent($event->getId(), $email);
+
+                        if ($isUserRegistered) {
+                            $context->buildViolation('You are already registered for this event.')
+                                ->atPath('email')
+                                ->addViolation();
                         }
                     }),
                 ],
